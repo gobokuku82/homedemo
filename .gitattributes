@@ -1,0 +1,15 @@
+# 줄바꿈 정규화 — 저장소는 항상 LF (Vercel/Linux 배포·크로스플랫폼 일관성)
+* text=auto eol=lf
+
+# 바이너리 — 변환 금지
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary

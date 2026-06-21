@@ -1,0 +1,178 @@
+/* ============================================================================
+   DreamAgent — 시맨틱 토큰 레이어
+   ⚠ PLACEHOLDER VALUES — design.md 확정 전 임시값입니다.
+      · 토큰 "이름(역할)"은 고정 — 컴포넌트가 의존합니다.
+      · "값"은 design.md가 확정되면 이 파일에서만 교체합니다 (컴포넌트 수정 0).
+      · 컴포넌트는 시맨틱 토큰만 참조 — raw hex / bg-[#...] 금지.
+   금지(AI 슬롭): 보라/파랑 그라데이션 · 떠다니는 blob · 과도한 glass · 일률 라운드.
+   방향: 따뜻함 × 정밀 (warm neutral greige + clay + teal).
+   ============================================================================ */
+
+/* ---------------------------------------------------------------------------
+   Tier 0 — 원시 팔레트 (PRIMITIVES)
+   컴포넌트에서 직접 사용 금지. @theme 밖이라 유틸리티(bg-warmgray-500 등)가
+   생성되지 않습니다. 시맨틱 토큰이 가리키는 "값의 출처"일 뿐.
+   --------------------------------------------------------------------------- */
+:root {
+  /* warm neutral (greige) — cool slate 아님, purple 틴트 아님 */
+  --p-warmgray-0: #fbfaf8;
+  --p-warmgray-50: #f5f3ef;
+  --p-warmgray-100: #ece9e3;
+  --p-warmgray-200: #dbd6cd;
+  --p-warmgray-300: #c2bbaf;
+  --p-warmgray-400: #9c9488;
+  --p-warmgray-500: #756e63;
+  --p-warmgray-600: #574f45;
+  --p-warmgray-700: #3b342c;
+  --p-warmgray-800: #262019;
+  --p-warmgray-900: #16120d;
+
+  /* hue primitives — 단색, 절제. 그라데이션 페어링 금지. */
+  --p-clay-500: #b4632f; /* PLACEHOLDER — warm terracotta = 브랜드/결과 트랙 seed */
+  --p-clay-600: #95501f;
+  --p-clay-wash: #f4e7dc;
+  --p-teal-600: #1e6e63; /* PLACEHOLDER — deep desaturated teal = 통제 트랙 seed */
+  --p-teal-700: #15564e;
+  --p-teal-wash: #dceae7;
+  --p-green-600: #2f7a4f; /* success */
+  --p-green-wash: #e4efe8;
+  --p-amber-500: #c08a1e; /* warning(재고위험) — amber, red 아님 */
+  --p-amber-wash: #f6ecd4;
+  --p-red-600: #b53a30; /* danger */
+  --p-red-wash: #f6e2e0;
+  --p-blue-600: #2d6a8e; /* info ONLY — 음소거된 steel, 단독 사용, 그라데이션 페어 금지 */
+  --p-blue-wash: #ddeaf1;
+}
+
+/* ---------------------------------------------------------------------------
+   Tier 1 — 시맨틱 역할 (SEMANTIC ROLES) — 컴포넌트는 이것만 참조
+   Tailwind v4 @theme: 토큰 1개가 CSS 변수 + 유틸리티를 동시에 생성.
+   예) --color-brand → bg-brand / text-brand / border-brand
+   `static` → 사용 여부와 무관하게 전 토큰을 CSS 변수로 방출(토큰 기반 안정성).
+   --------------------------------------------------------------------------- */
+@theme static {
+  /* ---- 색: 표면 / 텍스트 / 경계 ---- */
+  --color-background: var(--p-warmgray-0); /* 페이지 배경 */
+  --color-background-subtle: var(--p-warmgray-50); /* 교차 섹션 밴드 */
+  --color-surface: #ffffff; /* 카드/패널 1차 elevation */
+  --color-surface-sunken: var(--p-warmgray-50); /* inset well, 미리보기 트로프 */
+
+  --color-ink: var(--p-warmgray-900); /* 1차 텍스트 */
+  --color-ink-muted: var(--p-warmgray-600); /* 2차/보조 텍스트 */
+  --color-ink-subtle: var(--p-warmgray-400); /* 캡션/메타 */
+  --color-on-brand: var(--p-warmgray-0); /* 브랜드 채움 위 텍스트 */
+
+  --color-border: var(--p-warmgray-200); /* 기본 hairline */
+  --color-border-strong: var(--p-warmgray-300); /* 강조 divider */
+
+  /* ---- 브랜드 ---- */
+  --color-brand: var(--p-clay-500);
+  --color-brand-hover: var(--p-clay-600);
+  --color-brand-subtle: var(--p-clay-wash); /* 브랜드 틴트 wash(배지 bg) — 그라데이션 아님 */
+  --color-brand-contrast: var(--p-warmgray-0);
+  --color-ring: var(--p-clay-500); /* focus outline (a11y) */
+
+  /* ---- 두 고객 트랙 액센트 ---- */
+  --color-accent-result: var(--p-clay-500); /* 결과 트랙 — 실무자·대표 */
+  --color-accent-result-subtle: var(--p-clay-wash);
+  --color-accent-control: var(--p-teal-600); /* 통제 트랙 — 규제산업 의사결정자 */
+  --color-accent-control-subtle: var(--p-teal-wash);
+
+  /* ---- 상태 ---- */
+  --color-success: var(--p-green-600);
+  --color-success-subtle: var(--p-green-wash);
+  --color-warning: var(--p-amber-500); /* 재고위험 경고(키워드림) */
+  --color-warning-subtle: var(--p-amber-wash);
+  --color-danger: var(--p-red-600);
+  --color-danger-subtle: var(--p-red-wash);
+  --color-info: var(--p-blue-600);
+  --color-info-subtle: var(--p-blue-wash);
+
+  /* ---- coming-soon / muted (+ 확장 예정 슬롯) ---- */
+  --color-comingsoon-surface: var(--p-warmgray-100);
+  --color-comingsoon-ink: var(--p-warmgray-400);
+  --color-comingsoon-border: var(--p-warmgray-200);
+
+  /* ---- 스크린샷 프레임 (화면이 주인공 — 프레임은 색 경쟁 금지, 중립) ---- */
+  --color-frame: var(--p-warmgray-50); /* 스크린샷 뒤 mat */
+  --color-frame-border: var(--p-warmgray-200);
+  --color-frame-ring: rgba(22, 18, 13, 0.06); /* 1px inner hairline */
+
+  /* ---- 타이포 ---- */
+  --font-sans:
+    "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo",
+    "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
+  --font-mono:
+    "JetBrains Mono", "SFMono-Regular", ui-monospace, "Sarasa Mono K", monospace;
+
+  /* 타입 스케일 (정밀 — 약 1.2 step, display만 fluid clamp) */
+  --text-display: clamp(2.5rem, 5vw, 3.75rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.02em;
+  --text-h1: 2.25rem;
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.015em;
+  --text-h2: 1.75rem;
+  --text-h2--line-height: 1.15;
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.3;
+  --text-lead: 1.125rem;
+  --text-lead--line-height: 1.6;
+  --text-body: 1rem;
+  --text-body--line-height: 1.65; /* 한글은 넉넉한 lh */
+  --text-caption: 0.875rem;
+  --text-caption--line-height: 1.55;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.5;
+
+  /* ---- radius (일률 over-rounding 금지: 작고 의도적으로) ---- */
+  --radius-none: 0;
+  --radius-sm: 4px; /* input, badge, chip */
+  --radius-md: 8px; /* card, button (기본) */
+  --radius-lg: 12px; /* 큰 패널, 스크린샷 프레임 */
+  --radius-xl: 16px; /* 히어로 목업 컨테이너 전용 */
+  --radius-full: 9999px; /* pill/avatar 전용 — 카드 금지 */
+
+  /* ---- 그림자 / elevation (따뜻한 잉크 틴트, glass 금지) ---- */
+  --shadow-sm: 0 1px 2px rgba(22, 18, 13, 0.05);
+  --shadow-card: 0 1px 3px rgba(22, 18, 13, 0.06), 0 4px 12px rgba(22, 18, 13, 0.05);
+  --shadow-raised: 0 8px 24px rgba(22, 18, 13, 0.1);
+  --shadow-screenshot: 0 12px 40px rgba(22, 18, 13, 0.12); /* 제품 화면 lift */
+
+  /* ---- 섹션 리듬 (마케팅 페이지 전용 named spacing) ---- */
+  --spacing-section-y: clamp(4rem, 8vw, 7rem);
+  --spacing-section-y-sm: clamp(2.5rem, 5vw, 4rem);
+  --spacing-block: 2rem;
+  --spacing-stack: 1rem;
+  --spacing-gutter: clamp(1rem, 5vw, 2rem);
+
+  /* ---- 컨테이너 폭 → max-w-page / max-w-narrow ---- */
+  --container-page: 75rem; /* 1200px 콘텐츠 최대폭 */
+  --container-narrow: 45rem; /* 720px 장문/법적 고지 */
+
+  /* ---- motion (절제 — bouncy spring 금지) ---- */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------------------------------------------------------------------------
+   유틸리티를 만들지 않는 토큰 (직접 var()로 참조) — z-index, duration
+   --------------------------------------------------------------------------- */
+:root {
+  --z-base: 0;
+  --z-sticky-header: 50;
+  --z-overlay: 100;
+  --z-modal: 200;
+  --z-toast: 300;
+
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+}
+
+/* ---------------------------------------------------------------------------
+   다크 모드: 지금 "구축"하지 않음. 단, 구조만 예약.
+   컴포넌트가 Tier-1 역할 토큰만 참조하므로, 후속에 아래 블록 값만 채우면 됨.
+   (placeholder 다크값은 의도적으로 넣지 않음 — 실제 대비 튜닝은 design.md 단계.)
+   --------------------------------------------------------------------------- */
+/* [data-theme="dark"] { --color-background: ...; --color-surface: ...; --color-ink: ...; } */
