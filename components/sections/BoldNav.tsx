@@ -33,7 +33,7 @@ export function BoldNav() {
       </a>
 
       {/* nav links pushed to the far right (space-between); each in a subtle chip */}
-      <div data-bnav="" style={{ display: "flex", gap: 10, alignItems: "center" }}>
+      <div data-bnav="" style={{ display: "flex", gap: 14, alignItems: "center" }}>
         <a href="#products" className="nav-chip">
           제품
         </a>
@@ -41,7 +41,7 @@ export function BoldNav() {
           기술
         </a>
         <a href="#people" className="nav-chip">
-          함께할 사람
+          파트너 모집
         </a>
       </div>
     </nav>
