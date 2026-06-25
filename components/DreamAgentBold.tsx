@@ -27,7 +27,6 @@ export function DreamAgentBold() {
   return (
     <div
       id="top"
-      className="da-root"
       style={{
         ...cssVars,
         fontFamily: FONT_STACK,

@@ -27,7 +27,7 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
         padding: "clamp(48px,7vw,88px) clamp(20px,5vw,56px)",
       }}
     >
-      <div style={{ maxWidth: 1180, margin: "0 auto" }}>
+      <div style={{ maxWidth: "min(94vw, 2600px)", margin: "0 auto" }}>
         <div
           style={{
             fontSize: 12,

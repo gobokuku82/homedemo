@@ -15,7 +15,7 @@ const featData = [
 export function BoldTech({ open, onToggle }: BoldTechProps) {
   return (
     <section id="tech" style={{ padding: "clamp(48px,7vw,88px) clamp(20px,5vw,56px)" }}>
-      <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+      <div style={{ maxWidth: "min(94vw, 2000px)", margin: "0 auto" }}>
         <div
           style={{
             fontSize: 12,

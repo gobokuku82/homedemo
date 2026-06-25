@@ -8,7 +8,7 @@ export function BoldCta() {
         textAlign: "center",
       }}
     >
-      <div style={{ maxWidth: 840, margin: "0 auto" }}>
+      <div style={{ maxWidth: "min(94vw, 1040px)", margin: "0 auto" }}>
         <h2
           style={{
             fontWeight: 900,
