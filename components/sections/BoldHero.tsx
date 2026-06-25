@@ -59,7 +59,7 @@ export function BoldHero({
             data-bhero-h1=""
             style={{
               fontWeight: 900,
-              fontSize: "calc(clamp(44px,5vw,78px) * var(--hlScale))",
+              fontSize: "calc(clamp(44px,5vw,110px) * var(--hlScale))",
               lineHeight: 1.1,
               letterSpacing: "-.04em",
               margin: "0 0 20px",
