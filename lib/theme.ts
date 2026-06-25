@@ -5,14 +5,14 @@ import type { CSSProperties } from "react";
 export const theme = {
   accent: "#38BDF8", // sky blue
   ink: "#F1F5F9", // near-white text
-  surface: "#0B1220", // page background (navy)
-  darkBg: "#080E18", // CTA section background
+  surface: "#121C30", // page background (lifted navy — one tone brighter)
+  darkBg: "#0C1322", // CTA section background (darkest anchor for contrast)
   onAccent: "#06121F", // dark text on sky buttons
-  subtle: "#8B98AD", // muted slate text
-  line: "#1B2638", // navy borders
-  cardBg: "#0F1828", // elevated cards
-  sectionBg: "#0E1626", // alt section background (rhythm)
-  prodLine: "#1C2942", // product placeholder fill
+  subtle: "#94A2B8", // muted slate text (slightly brighter for the lifted bg)
+  line: "#2A3A57", // navy borders
+  cardBg: "#1A2740", // elevated cards
+  sectionBg: "#18243C", // alt section background (rhythm)
+  prodLine: "#2E4063", // product placeholder fill
   hlAccent: "#38BDF8", // highlighted word colour
   btnRadius: "999px", // pill buttons
   // per-line hero position offsets (the design's "Tweaks")
@@ -56,10 +56,11 @@ export interface Agent {
   name: string;
   domain: string;
   tag: string;
+  image: string; // 히어로 쇼케이스 제품 화면 (public/ 기준 경로)
 }
 
 export const agentData: Agent[] = [
-  { name: "Mirror Dream cso", domain: "제약", tag: "PHARMA" },
-  { name: "MAUM Dream", domain: "관리", tag: "MANAGEMENT" },
-  { name: "MoA Dream", domain: "마케팅", tag: "MARKETING" },
+  { name: "Mirror Dream cso", domain: "제약", tag: "PHARMA", image: "/hero/hero-1.png" },
+  { name: "MAUM Dream", domain: "관리", tag: "MANAGEMENT", image: "/hero/hero-2.png" },
+  { name: "MoA Dream", domain: "마케팅", tag: "MARKETING", image: "/hero/hero-3.png" },
 ];

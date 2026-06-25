@@ -166,26 +166,27 @@ export function BoldHero({
               </span>
             </div>
 
-            {/* image area (placeholder for product screen / video) */}
+            {/* image area (product screen) */}
             <div
               style={{
                 background: "#16181E",
                 aspectRatio: "16/10",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                position: "relative",
+                overflow: "hidden",
               }}
             >
-              <span
+              <img
+                src={heroAgent.image}
+                alt={`${heroAgent.name} 제품 화면`}
                 style={{
-                  fontSize: 12,
-                  fontWeight: 700,
-                  letterSpacing: ".12em",
-                  color: "rgba(255,255,255,.28)",
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block",
                 }}
-              >
-                제품 화면 · {heroAgent.tag}
-              </span>
+              />
             </div>
 
             {/* bottom bar: label + arrows */}
