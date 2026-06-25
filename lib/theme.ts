@@ -56,11 +56,24 @@ export interface Agent {
   name: string;
   domain: string;
   tag: string;
-  image: string; // 히어로 쇼케이스 제품 화면 (public/ 기준 경로)
 }
 
 export const agentData: Agent[] = [
-  { name: "MoA Dream", domain: "마케팅", tag: "MARKETING", image: "/hero/hero-3.png" },
-  { name: "MAUM Dream", domain: "관리", tag: "MANAGEMENT", image: "/hero/hero-2.png" },
-  { name: "Mirror Dream cso", domain: "제약", tag: "PHARMA", image: "/hero/hero-1.png" },
+  { name: "MoA Dream", domain: "마케팅", tag: "MARKETING" },
+  { name: "MAUM Dream", domain: "관리", tag: "MANAGEMENT" },
+  { name: "Mirror Dream cso", domain: "제약", tag: "PHARMA" },
+];
+
+// 히어로 쇼케이스 슬라이드 — 제품 섹션의 agentData와 독립.
+// 캔버스는 16/9(영상 비율) 고정. 이미지는 contain(잘림 없이 전부, 안 맞으면 여백).
+export interface HeroSlide {
+  name: string; // 상단 창 제목 + 하단 제품명
+  tag: string; // 하단 태그
+  image?: string; // 제품 화면 이미지 (public/ 기준 경로)
+  youtubeId?: string; // 유튜브 영상 ID (자동재생·음소거·루프)
+}
+
+export const heroSlides: HeroSlide[] = [
+  { name: "MoA Dream", tag: "MARKETING", youtubeId: "YEbejPGOyMA" },
+  { name: "MAUM Dream", tag: "MANAGEMENT", image: "/hero/hero-1.png" },
 ];

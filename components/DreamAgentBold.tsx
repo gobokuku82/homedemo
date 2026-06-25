@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { agentData, cssVars } from "@/lib/theme";
+import { heroSlides, cssVars } from "@/lib/theme";
 import { BoldNav } from "@/components/sections/BoldNav";
 import { BoldHero } from "@/components/sections/BoldHero";
 import { BoldProducts } from "@/components/sections/BoldProducts";
@@ -19,10 +19,10 @@ export function DreamAgentBold() {
   const [openIdx, setOpenIdx] = useState(0);
   const [heroSlide, setHeroSlide] = useState(0);
 
-  const heroAgent = agentData[heroSlide];
-  const heroSlideLabel = `${heroSlide + 1} / ${agentData.length}`;
-  const heroPrev = () => setHeroSlide((s) => (s + agentData.length - 1) % agentData.length);
-  const heroNext = () => setHeroSlide((s) => (s + 1) % agentData.length);
+  const heroAgent = heroSlides[heroSlide];
+  const heroSlideLabel = `${heroSlide + 1} / ${heroSlides.length}`;
+  const heroPrev = () => setHeroSlide((s) => (s + heroSlides.length - 1) % heroSlides.length);
+  const heroNext = () => setHeroSlide((s) => (s + 1) % heroSlides.length);
 
   return (
     <div

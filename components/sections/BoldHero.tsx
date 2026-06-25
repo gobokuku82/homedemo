@@ -1,7 +1,7 @@
-import type { Agent } from "@/lib/theme";
+import type { HeroSlide } from "@/lib/theme";
 
 interface BoldHeroProps {
-  heroAgent: Agent;
+  heroAgent: HeroSlide;
   heroSlideLabel: string;
   onPrev: () => void;
   onNext: () => void;
@@ -166,7 +166,7 @@ export function BoldHero({
               </span>
             </div>
 
-            {/* image area (product screen) */}
+            {/* media area — 캔버스 16/9(영상 비율). 영상이면 iframe, 이미지면 contain(여백 허용) */}
             <div
               style={{
                 background: "#16181E",
@@ -175,18 +175,35 @@ export function BoldHero({
                 overflow: "hidden",
               }}
             >
-              <img
-                src={heroAgent.image}
-                alt={`${heroAgent.name} 제품 화면`}
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  display: "block",
-                }}
-              />
+              {heroAgent.youtubeId ? (
+                <iframe
+                  src={`https://www.youtube.com/embed/${heroAgent.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${heroAgent.youtubeId}&controls=0&playsinline=1&rel=0&modestbranding=1`}
+                  title={heroAgent.name}
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    border: 0,
+                    display: "block",
+                  }}
+                />
+              ) : (
+                <img
+                  src={heroAgent.image}
+                  alt={`${heroAgent.name} 제품 화면`}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+                    display: "block",
+                  }}
+                />
+              )}
             </div>
 
             {/* bottom bar: label + arrows */}
