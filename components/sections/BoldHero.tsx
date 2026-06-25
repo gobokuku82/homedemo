@@ -27,8 +27,8 @@ export function BoldHero({
           maxWidth: "min(94vw, 2600px)",
           margin: "0 auto",
           display: "grid",
-          gridTemplateColumns: "1fr 1.15fr",
-          gap: "clamp(28px,3vw,56px)",
+          gridTemplateColumns: "1.1fr 1fr",
+          gap: "clamp(10px,1vw,18px)",
           alignItems: "center",
         }}
       >
@@ -59,7 +59,7 @@ export function BoldHero({
             data-bhero-h1=""
             style={{
               fontWeight: 900,
-              fontSize: "calc(clamp(40px,4.4vw,60px) * var(--hlScale))",
+              fontSize: "calc(clamp(44px,5vw,78px) * var(--hlScale))",
               lineHeight: 1.1,
               letterSpacing: "-.04em",
               margin: "0 0 20px",
