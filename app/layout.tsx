@@ -1,35 +1,24 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+// Self-hosted Pretendard (variable) — bundled, no CDN dependency.
+import "pretendard/dist/web/variable/pretendardvariable.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://dreamagent.example"),
-  title: "DreamAgent — The expert is you.",
+  title: "Dream Agent — 이제, 당신이 전문가입니다",
   description:
-    "DreamAgent deploys specialized AI agents built for your industry — with human-in-the-loop control at every step. You see every action, approve every decision.",
+    "당신의 일을 학습한 분야 최고의 브레인이, 계획부터 끝까지 함께합니다. Dream Agent는 도메인 전문가와 함께 만드는 AI 에이전트 팀입니다.",
   openGraph: {
-    title: "DreamAgent — The expert is you.",
+    title: "Dream Agent — 이제, 당신이 전문가입니다",
     description:
-      "Specialized AI agents for marketing, counseling and pharma sales — with human-in-the-loop control at every step.",
+      "당신의 현장에 최고의 브레인을 더한다면. 도메인 특화 AI 에이전트, Dream Agent.",
     type: "website",
   },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;700&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="ko">
       <body>{children}</body>
     </html>
   );

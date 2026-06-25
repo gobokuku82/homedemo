@@ -1,5 +1,5 @@
-import { DreamAgentLanding } from "@/components/DreamAgentLanding";
+import { DreamAgentBold } from "@/components/DreamAgentBold";
 
 export default function HomePage() {
-  return <DreamAgentLanding />;
+  return <DreamAgentBold />;
 }
