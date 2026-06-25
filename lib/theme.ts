@@ -60,7 +60,7 @@ export interface Agent {
 }
 
 export const agentData: Agent[] = [
-  { name: "Mirror Dream cso", domain: "제약", tag: "PHARMA", image: "/hero/hero-1.png" },
-  { name: "MAUM Dream", domain: "관리", tag: "MANAGEMENT", image: "/hero/hero-2.png" },
   { name: "MoA Dream", domain: "마케팅", tag: "MARKETING", image: "/hero/hero-3.png" },
+  { name: "MAUM Dream", domain: "관리", tag: "MANAGEMENT", image: "/hero/hero-2.png" },
+  { name: "Mirror Dream cso", domain: "제약", tag: "PHARMA", image: "/hero/hero-1.png" },
 ];
