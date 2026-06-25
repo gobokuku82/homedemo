@@ -17,6 +17,13 @@ body {
   margin: 0;
 }
 
+/* Scale the whole UI ~1.5× so 100% zoom reads like 150% browser zoom.
+   `zoom` reflows layout (unlike transform:scale), so no horizontal scroll.
+   Tune the factor here; drop to a media query if mobile should stay 1×. */
+.da-root {
+  zoom: 1.5;
+}
+
 ::selection {
   background: var(--accent, #2b43f5);
   color: #fff;
