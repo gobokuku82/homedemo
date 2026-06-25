@@ -21,10 +21,10 @@ export function BoldNav() {
             background: "var(--ink)",
             color: "var(--surface)",
             fontWeight: 900,
-            fontSize: 14.5,
+            fontSize: 17.5,
             letterSpacing: "-.04em",
-            padding: "6px 12px",
-            borderRadius: 6,
+            padding: "7px 14px",
+            borderRadius: 7,
             whiteSpace: "nowrap",
           }}
         >
@@ -32,35 +32,18 @@ export function BoldNav() {
         </span>
       </a>
 
-      <div
-        data-bnav=""
-        style={{ display: "flex", gap: 30, fontSize: 14, fontWeight: 600, color: "var(--ink)" }}
-      >
-        <a href="#products" style={{ color: "inherit", textDecoration: "none" }}>
+      {/* nav links pushed to the far right (space-between); each in a subtle chip */}
+      <div data-bnav="" style={{ display: "flex", gap: 10, alignItems: "center" }}>
+        <a href="#products" className="nav-chip">
           제품
         </a>
-        <a href="#tech" style={{ color: "inherit", textDecoration: "none" }}>
+        <a href="#tech" className="nav-chip">
           기술
         </a>
-        <a href="#people" style={{ color: "inherit", textDecoration: "none" }}>
+        <a href="#people" className="nav-chip">
           함께할 사람
         </a>
       </div>
-
-      <a
-        href="#cta"
-        style={{
-          background: "var(--accent)",
-          color: "var(--onaccent)",
-          fontSize: 13,
-          fontWeight: 700,
-          padding: "10px 18px",
-          borderRadius: "var(--btnRadius)",
-          textDecoration: "none",
-        }}
-      >
-        함께 만들기
-      </a>
     </nav>
   );
 }
