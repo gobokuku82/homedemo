@@ -78,7 +78,7 @@ export function BoldPeople({ showFounder = true }: BoldPeopleProps) {
             marginBottom: 14,
           }}
         >
-          JOIN US
+          PARTNER WITH US
         </div>
         <h2
           style={{
@@ -89,7 +89,7 @@ export function BoldPeople({ showFounder = true }: BoldPeopleProps) {
             lineHeight: 1.02,
           }}
         >
-          함께 만들 사람을 찾습니다
+          함께 만들 파트너를 찾습니다
         </h2>
         <p
           style={{
