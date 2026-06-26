@@ -17,13 +17,14 @@ const productShots: string[][] = [
 ];
 const PLACEHOLDER_SHOTS = 3;
 
-// 단일 캔버스 — 채움은 배경과 거의 같게(살짝 더 어둡게), 구분은 검은 외곽선 + 그림자가 담당
+// 단일 캔버스 — 채움은 배경과 거의 같게(살짝 더 어둡게)
 const CANVAS_BG = "color-mix(in srgb,#000 12%,var(--prodBg))";
-const CANVAS_BORDER = "color-mix(in srgb,#000 60%,transparent)"; // 외곽선: 검은색 계열
-const DIVIDER = "color-mix(in srgb,var(--ink) 12%,transparent)"; // 내부 구분선(가독성 위해 밝게 유지)
-// 외곽 강조: 검은 외곽 링 + 강화된 깊이감 그림자
+// 가장자리: 검정/밝은색 대신 '같은 네이비 계열의 더 어두운 톤' 하나로 모든 선을 통일
+const CANVAS_BORDER = "color-mix(in srgb,#000 32%,var(--prodBg))";
+const DIVIDER = "color-mix(in srgb,var(--ink) 9%,transparent)"; // 내부 구분선(살짝만 밝게)
+// 선은 톤으로 처리하고, 입체감은 부드러운 그림자가 담당
 const CANVAS_SHADOW =
-  "0 0 0 1px color-mix(in srgb,#000 38%,transparent), 0 26px 60px -28px rgba(0,0,0,.68)";
+  "0 22px 56px -26px rgba(0,0,0,.7), 0 6px 20px -14px rgba(0,0,0,.5)";
 
 export function BoldProducts({ active, onSelect }: BoldProductsProps) {
   const current = agentData[active];
@@ -92,11 +93,11 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
                   borderTopRightRadius: 12,
                   borderBottomLeftRadius: 0,
                   borderBottomRightRadius: 0,
-                  borderLeft: `1px solid ${isActive ? CANVAS_BORDER : "var(--line)"}`,
-                  borderRight: `1px solid ${isActive ? CANVAS_BORDER : "var(--line)"}`,
-                  borderTop: isActive ? "2px solid var(--accent)" : "1px solid var(--line)",
-                  borderBottom: isActive ? "none" : "1px solid var(--line)",
-                  background: isActive ? CANVAS_BG : "var(--surface)",
+                  borderLeft: `1px solid ${CANVAS_BORDER}`,
+                  borderRight: `1px solid ${CANVAS_BORDER}`,
+                  borderTop: `1px solid ${CANVAS_BORDER}`,
+                  borderBottom: isActive ? "none" : `1px solid ${CANVAS_BORDER}`,
+                  background: isActive ? CANVAS_BG : "var(--darkbg)",
                   color: isActive ? "var(--ink)" : "var(--subtle)",
                 }}
               >
