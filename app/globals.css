@@ -78,7 +78,7 @@ body {
   transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
 }
 .role-card:hover {
-  background: color-mix(in srgb, var(--ink) 9%, var(--cardbg));
+  background: color-mix(in srgb, var(--ink) 5%, var(--cardbg));
   transform: translateY(-4px);
   box-shadow: 0 18px 42px -18px rgba(0, 0, 0, 0.7);
 }
