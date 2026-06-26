@@ -17,9 +17,12 @@ const productShots: string[][] = [
 ];
 const PLACEHOLDER_SHOTS = 3;
 
-// 단일 캔버스 — 텍스트가 직접 올라가는 하나의 패널(어두운 테마에서 흰 글씨가 읽히는 톤)
-const CANVAS_BG = "color-mix(in srgb,var(--ink) 10%,var(--prodBg))";
-const CANVAS_BORDER = "color-mix(in srgb,var(--ink) 11%,transparent)";
+// 단일 캔버스 — 채움은 배경과 거의 같게(살짝 더 어둡게), 구분은 외곽선/글로우가 담당
+const CANVAS_BG = "color-mix(in srgb,#000 12%,var(--prodBg))";
+const CANVAS_BORDER = "color-mix(in srgb,var(--ink) 16%,transparent)";
+// 외곽 강조: 얇은 accent 링 + accent 글로우 + 깊이감 그림자
+const CANVAS_SHADOW =
+  "0 0 0 1px color-mix(in srgb,var(--accent) 14%,transparent), 0 0 40px -10px color-mix(in srgb,var(--accent) 16%,transparent), 0 24px 56px -30px rgba(0,0,0,.55)";
 
 export function BoldProducts({ active, onSelect }: BoldProductsProps) {
   const current = agentData[active];
@@ -115,6 +118,7 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
             background: CANVAS_BG,
             border: `1px solid ${CANVAS_BORDER}`,
             borderRadius: 20,
+            boxShadow: CANVAS_SHADOW,
             padding: "clamp(28px,3.2vw,56px)",
           }}
         >
