@@ -17,12 +17,13 @@ const productShots: string[][] = [
 ];
 const PLACEHOLDER_SHOTS = 3;
 
-// 단일 캔버스 — 채움은 배경과 거의 같게(살짝 더 어둡게), 구분은 외곽선/글로우가 담당
+// 단일 캔버스 — 채움은 배경과 거의 같게(살짝 더 어둡게), 구분은 검은 외곽선 + 그림자가 담당
 const CANVAS_BG = "color-mix(in srgb,#000 12%,var(--prodBg))";
-const CANVAS_BORDER = "color-mix(in srgb,var(--ink) 16%,transparent)";
-// 외곽 강조: 얇은 accent 링 + accent 글로우 + 깊이감 그림자
+const CANVAS_BORDER = "color-mix(in srgb,#000 60%,transparent)"; // 외곽선: 검은색 계열
+const DIVIDER = "color-mix(in srgb,var(--ink) 12%,transparent)"; // 내부 구분선(가독성 위해 밝게 유지)
+// 외곽 강조: 검은 외곽 링 + 강화된 깊이감 그림자
 const CANVAS_SHADOW =
-  "0 0 0 1px color-mix(in srgb,var(--accent) 14%,transparent), 0 0 40px -10px color-mix(in srgb,var(--accent) 16%,transparent), 0 24px 56px -30px rgba(0,0,0,.55)";
+  "0 0 0 1px color-mix(in srgb,#000 38%,transparent), 0 26px 60px -28px rgba(0,0,0,.68)";
 
 export function BoldProducts({ active, onSelect }: BoldProductsProps) {
   const current = agentData[active];
@@ -157,7 +158,7 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
                 {current.name}
               </h3>
 
-              <div style={{ borderTop: `1px solid ${CANVAS_BORDER}`, paddingTop: 22 }}>
+              <div style={{ borderTop: `1px solid ${DIVIDER}`, paddingTop: 22 }}>
                 <div style={{ fontSize: 15, fontWeight: 700, color: "var(--ink)", marginBottom: 16 }}>
                   {current.domain} 도메인 특화
                 </div>
