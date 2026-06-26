@@ -8,15 +8,6 @@ interface BoldProductsProps {
   onSelect: (i: number) => void;
 }
 
-const tabBase: CSSProperties = {
-  padding: "12px 20px",
-  borderRadius: 12,
-  cursor: "pointer",
-  transition: "all .16s",
-  borderWidth: 1.5,
-  borderStyle: "solid",
-};
-
 // 에이전트별 제품 화면 슬라이드 (실제 이미지 경로를 채우면 자동으로 표시).
 // 비어 있으면 placeholder 슬라이드를 PLACEHOLDER_SHOTS 개수만큼 보여줌.
 const productShots: string[][] = [
@@ -26,10 +17,14 @@ const productShots: string[][] = [
 ];
 const PLACEHOLDER_SHOTS = 3;
 
-// 캔버스 안 중첩 박스 (배경보다 한 톤 더 밝게)
+// 톤 위계: 페이지(어둠) → 캔버스(밝음) → 내부 박스(다시 어둡게)
+const CANVAS_BG = "color-mix(in srgb,var(--ink) 13%,var(--prodBg))";
+const CANVAS_BORDER = "color-mix(in srgb,var(--ink) 12%,transparent)";
+
+// 캔버스 안 중첩 박스 — 어두운 톤
 const innerBox: CSSProperties = {
-  background: "color-mix(in srgb,var(--ink) 5%,transparent)",
-  border: "1px solid color-mix(in srgb,var(--ink) 9%,transparent)",
+  background: "var(--surface)",
+  border: "1px solid color-mix(in srgb,var(--ink) 8%,transparent)",
   borderRadius: 14,
 };
 
@@ -64,20 +59,24 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
             fontWeight: 800,
             letterSpacing: ".1em",
             color: "color-mix(in srgb,var(--prodText) 55%,transparent)",
-            marginBottom: 28,
+            marginBottom: 24,
           }}
         >
           PRODUCTS
         </div>
 
-        {/* tabs — clicking switches the agent shown in the canvas below */}
+        {/* folder tabs — active tab fuses into the canvas top edge (no image, pure CSS) */}
         <div
+          role="tablist"
           style={{
             display: "flex",
-            gap: 8,
+            gap: 6,
             flexWrap: "wrap",
-            marginBottom: 18,
             justifyContent: "center",
+            alignItems: "flex-end",
+            position: "relative",
+            zIndex: 2,
+            marginBottom: -1, // overlap the canvas top border so the active tab connects
           }}
         >
           {agentData.map((a, i) => {
@@ -85,14 +84,23 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
             return (
               <button
                 key={a.name}
+                role="tab"
+                aria-selected={isActive}
                 onClick={() => onSelect(i)}
-                aria-pressed={isActive}
                 style={{
-                  ...tabBase,
-                  background: isActive ? "var(--accent)" : "transparent",
-                  color: isActive ? "var(--onaccent)" : "var(--subtle)",
-                  borderColor: isActive ? "var(--accent)" : "var(--line)",
-                  fontWeight: isActive ? 700 : 400,
+                  cursor: "pointer",
+                  transition: "all .16s",
+                  padding: "11px 22px 13px",
+                  borderTopLeftRadius: 12,
+                  borderTopRightRadius: 12,
+                  borderBottomLeftRadius: 0,
+                  borderBottomRightRadius: 0,
+                  borderLeft: `1px solid ${isActive ? CANVAS_BORDER : "var(--line)"}`,
+                  borderRight: `1px solid ${isActive ? CANVAS_BORDER : "var(--line)"}`,
+                  borderTop: isActive ? "2px solid var(--accent)" : "1px solid var(--line)",
+                  borderBottom: isActive ? "none" : "1px solid var(--line)",
+                  background: isActive ? CANVAS_BG : "var(--surface)",
+                  color: isActive ? "var(--ink)" : "var(--subtle)",
                 }}
               >
                 <span style={{ fontWeight: 900, fontSize: 16, letterSpacing: "-.02em" }}>
@@ -106,11 +114,13 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
           })}
         </div>
 
-        {/* connected canvas — one panel, slightly brighter than the page */}
+        {/* canvas — bright tone; its top border is covered by the active tab → connected shape */}
         <div
           style={{
-            background: "color-mix(in srgb,var(--ink) 7%,var(--prodBg))",
-            border: "1px solid color-mix(in srgb,var(--ink) 10%,transparent)",
+            position: "relative",
+            zIndex: 1,
+            background: CANVAS_BG,
+            border: `1px solid ${CANVAS_BORDER}`,
             borderRadius: 20,
             padding: "clamp(16px,2.2vw,32px)",
           }}
@@ -124,7 +134,7 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
               alignItems: "stretch",
             }}
           >
-            {/* LEFT: name box + description box */}
+            {/* LEFT: name box + description box (dark) */}
             <div
               style={{
                 display: "flex",
@@ -152,6 +162,7 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
                     letterSpacing: "-.04em",
                     lineHeight: 1,
                     margin: 0,
+                    color: "var(--ink)",
                   }}
                 >
                   {current.name}
@@ -172,15 +183,29 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
                   style={{
                     fontSize: 15,
                     fontWeight: 700,
-                    color: "var(--prodText)",
+                    color: "var(--ink)",
                     marginBottom: 18,
                   }}
                 >
                   {current.domain} 도메인 특화
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 9, maxWidth: 340 }}>
-                  <div style={{ height: 11, borderRadius: 6, background: "var(--prodLine)", width: "90%" }} />
-                  <div style={{ height: 11, borderRadius: 6, background: "var(--prodLine)", width: "68%" }} />
+                  <div
+                    style={{
+                      height: 11,
+                      borderRadius: 6,
+                      background: "color-mix(in srgb,var(--ink) 12%,transparent)",
+                      width: "90%",
+                    }}
+                  />
+                  <div
+                    style={{
+                      height: 11,
+                      borderRadius: 6,
+                      background: "color-mix(in srgb,var(--ink) 12%,transparent)",
+                      width: "68%",
+                    }}
+                  />
                   <div
                     style={{
                       fontSize: 12,
@@ -194,7 +219,7 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
               </div>
             </div>
 
-            {/* RIGHT: nav arrows + 16:9 image */}
+            {/* RIGHT: nav arrows + 16:9 image (dark) */}
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8 }}>
                 <button className="hero-navbtn" onClick={shotPrev} aria-label="이전 화면">
@@ -222,7 +247,7 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
                   position: "relative",
                   overflow: "hidden",
                   aspectRatio: "16 / 9",
-                  background: "color-mix(in srgb,var(--ink) 8%,transparent)",
+                  background: "var(--darkbg)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
