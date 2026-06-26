@@ -1,65 +1,23 @@
-import type { CSSProperties } from "react";
-
 interface BoldPeopleProps {
   showFounder?: boolean;
 }
 
-// 1순위(제작 의뢰) — 밝은 accent 대신 다크 + accent 살짝 섞은 톤 + accent 테두리로 구분
-const featuredCard: CSSProperties = {
-  padding: "26px 24px",
-  borderRadius: 16,
-  background: "color-mix(in srgb,var(--accent) 14%,var(--cardbg))",
-  border: "1px solid color-mix(in srgb,var(--accent) 38%,transparent)",
-};
-
-const plainCard: CSSProperties = {
-  padding: "26px 24px",
-  borderRadius: 16,
-  background: "var(--cardbg)",
-  border: "1px solid var(--line)",
-};
-
-interface Role {
-  featured: boolean;
-  kicker: string;
-  title: string;
-  desc: string;
-  cardStyle: CSSProperties;
-  kickerColor: string;
-  titleColor: string;
-  descColor: string;
-}
-
-const roles: Role[] = [
+// 3개 카드 모두 동일한 톤(.role-card). 색/호버는 globals.css 에서 관리.
+const roles = [
   {
-    featured: false,
     kicker: "제작 의뢰",
     title: "제작 의뢰",
     desc: "AI 에이전트 공동 설계 및 제작. 당신의 전문성이 곧 제품이 됩니다.",
-    cardStyle: featuredCard,
-    kickerColor: "var(--accent)",
-    titleColor: "var(--ink)",
-    descColor: "var(--subtle)",
   },
   {
-    featured: false,
     kicker: "투자",
     title: "투자",
     desc: "도메인 AI 시장과 함께 성장할 초기 파트너를 찾습니다.",
-    cardStyle: plainCard,
-    kickerColor: "var(--accent)",
-    titleColor: "var(--ink)",
-    descColor: "var(--subtle)",
   },
   {
-    featured: false,
     kicker: "파일럿 지원",
     title: "파일럿 지원",
     desc: "실제 업무 적용을 위한 파일럿 기관과 지원 프로그램을 환영합니다.",
-    cardStyle: plainCard,
-    kickerColor: "var(--accent)",
-    titleColor: "var(--ink)",
-    descColor: "var(--subtle)",
   },
 ];
 
@@ -106,24 +64,13 @@ export function BoldPeople({ showFounder = true }: BoldPeopleProps) {
 
         <div data-broles="" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14 }}>
           {roles.map((r) => (
-            <a
-              key={r.title}
-              href="#cta"
-              className="role-card"
-              style={r.cardStyle}
-              aria-label={`${r.title} 문의하기`}
-            >
-              {r.featured && (
-                <div style={{ fontSize: 11, fontWeight: 800, opacity: 0.8, marginBottom: 10 }}>
-                  공동제작 파트너 · 1순위
-                </div>
-              )}
+            <a key={r.title} href="#cta" className="role-card" aria-label={`${r.title} 문의하기`}>
               <div
                 style={{
                   fontSize: 12,
                   fontWeight: 800,
                   letterSpacing: ".04em",
-                  color: r.kickerColor,
+                  color: "var(--accent)",
                   marginBottom: 8,
                 }}
               >
@@ -135,7 +82,7 @@ export function BoldPeople({ showFounder = true }: BoldPeopleProps) {
                   fontSize: 25,
                   letterSpacing: "-.025em",
                   margin: "0 0 12px",
-                  color: r.titleColor,
+                  color: "var(--ink)",
                 }}
               >
                 {r.title}
@@ -145,7 +92,7 @@ export function BoldPeople({ showFounder = true }: BoldPeopleProps) {
                   fontSize: 14,
                   lineHeight: 1.55,
                   margin: 0,
-                  color: r.descColor,
+                  color: "var(--subtle)",
                   textWrap: "pretty",
                 }}
               >
