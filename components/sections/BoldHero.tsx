@@ -180,7 +180,7 @@ export function BoldHero({
                   src={`https://www.youtube.com/embed/${heroAgent.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${heroAgent.youtubeId}&controls=0&playsinline=1&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&disablekb=1&fs=0`}
                   title={heroAgent.name}
                   allow="autoplay; encrypted-media; picture-in-picture"
-                  // pointerEvents 차단 → 호버/클릭 컨트롤 안 뜸. scale 확대 → 제목·워터마크 크롭(배경 영상 스타일)
+                  // pointerEvents 차단 → 호버/클릭 컨트롤 안 뜸. 16/9 그대로 채워 영상 전체 표시(잘림 없음)
                   style={{
                     position: "absolute",
                     inset: 0,
@@ -189,8 +189,6 @@ export function BoldHero({
                     border: 0,
                     display: "block",
                     pointerEvents: "none",
-                    transform: "scale(1.2)",
-                    transformOrigin: "center",
                   }}
                 />
               ) : (
