@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useState } from "react";
 import { agentData } from "@/lib/theme";
 
 interface BoldProductsProps {
@@ -17,16 +17,9 @@ const productShots: string[][] = [
 ];
 const PLACEHOLDER_SHOTS = 3;
 
-// 톤 위계: 페이지(어둠) → 캔버스(밝음) → 내부 박스(다시 어둡게)
-const CANVAS_BG = "color-mix(in srgb,var(--ink) 13%,var(--prodBg))";
-const CANVAS_BORDER = "color-mix(in srgb,var(--ink) 12%,transparent)";
-
-// 캔버스 안 중첩 박스 — 어두운 톤
-const innerBox: CSSProperties = {
-  background: "var(--surface)",
-  border: "1px solid color-mix(in srgb,var(--ink) 8%,transparent)",
-  borderRadius: 14,
-};
+// 단일 캔버스 — 텍스트가 직접 올라가는 하나의 패널(어두운 테마에서 흰 글씨가 읽히는 톤)
+const CANVAS_BG = "color-mix(in srgb,var(--ink) 10%,var(--prodBg))";
+const CANVAS_BORDER = "color-mix(in srgb,var(--ink) 11%,transparent)";
 
 export function BoldProducts({ active, onSelect }: BoldProductsProps) {
   const current = agentData[active];
@@ -65,7 +58,7 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
           PRODUCTS
         </div>
 
-        {/* folder tabs — active tab fuses into the canvas top edge (no image, pure CSS) */}
+        {/* folder tabs — active tab fuses into the canvas top edge (pure CSS) */}
         <div
           role="tablist"
           style={{
@@ -76,7 +69,7 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
             alignItems: "flex-end",
             position: "relative",
             zIndex: 2,
-            marginBottom: -1, // overlap the canvas top border so the active tab connects
+            marginBottom: -1,
           }}
         >
           {agentData.map((a, i) => {
@@ -114,7 +107,7 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
           })}
         </div>
 
-        {/* canvas — bright tone; its top border is covered by the active tab → connected shape */}
+        {/* unified canvas — content sits directly on it; only the image is framed */}
         <div
           style={{
             position: "relative",
@@ -122,7 +115,7 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
             background: CANVAS_BG,
             border: `1px solid ${CANVAS_BORDER}`,
             borderRadius: 20,
-            padding: "clamp(16px,2.2vw,32px)",
+            padding: "clamp(28px,3.2vw,56px)",
           }}
         >
           <div
@@ -130,63 +123,38 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1.1fr",
-              gap: "clamp(16px,2vw,32px)",
-              alignItems: "stretch",
+              gap: "clamp(24px,3vw,56px)",
+              alignItems: "center",
             }}
           >
-            {/* LEFT: name box + description box (dark) */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "clamp(14px,1.5vw,20px)",
-              }}
-            >
-              {/* agent name box */}
-              <div style={{ ...innerBox, padding: "clamp(20px,2vw,32px)" }}>
-                <div
-                  style={{
-                    fontSize: 12,
-                    fontWeight: 800,
-                    letterSpacing: ".08em",
-                    color: "var(--accent)",
-                    marginBottom: 10,
-                  }}
-                >
-                  {current.tag}
-                </div>
-                <h3
-                  style={{
-                    fontWeight: 900,
-                    fontSize: "clamp(34px,4.5vw,56px)",
-                    letterSpacing: "-.04em",
-                    lineHeight: 1,
-                    margin: 0,
-                    color: "var(--ink)",
-                  }}
-                >
-                  {current.name}
-                </h3>
-              </div>
-
-              {/* agent description box */}
+            {/* LEFT: text directly on the canvas (name / divider / description) */}
+            <div>
               <div
                 style={{
-                  ...innerBox,
-                  flex: 1,
-                  padding: "clamp(20px,2vw,32px)",
-                  display: "flex",
-                  flexDirection: "column",
+                  fontSize: 12,
+                  fontWeight: 800,
+                  letterSpacing: ".08em",
+                  color: "var(--accent)",
+                  marginBottom: 10,
                 }}
               >
-                <div
-                  style={{
-                    fontSize: 15,
-                    fontWeight: 700,
-                    color: "var(--ink)",
-                    marginBottom: 18,
-                  }}
-                >
+                {current.tag}
+              </div>
+              <h3
+                style={{
+                  fontWeight: 900,
+                  fontSize: "clamp(34px,4.5vw,56px)",
+                  letterSpacing: "-.04em",
+                  lineHeight: 1,
+                  margin: "0 0 22px",
+                  color: "var(--ink)",
+                }}
+              >
+                {current.name}
+              </h3>
+
+              <div style={{ borderTop: `1px solid ${CANVAS_BORDER}`, paddingTop: 22 }}>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "var(--ink)", marginBottom: 16 }}>
                   {current.domain} 도메인 특화
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 9, maxWidth: 340 }}>
@@ -194,7 +162,7 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
                     style={{
                       height: 11,
                       borderRadius: 6,
-                      background: "color-mix(in srgb,var(--ink) 12%,transparent)",
+                      background: "color-mix(in srgb,var(--ink) 10%,transparent)",
                       width: "90%",
                     }}
                   />
@@ -202,7 +170,7 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
                     style={{
                       height: 11,
                       borderRadius: 6,
-                      background: "color-mix(in srgb,var(--ink) 12%,transparent)",
+                      background: "color-mix(in srgb,var(--ink) 10%,transparent)",
                       width: "68%",
                     }}
                   />
@@ -219,7 +187,7 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
               </div>
             </div>
 
-            {/* RIGHT: nav arrows + 16:9 image (dark) */}
+            {/* RIGHT: nav arrows + framed 16:9 image */}
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8 }}>
                 <button className="hero-navbtn" onClick={shotPrev} aria-label="이전 화면">
@@ -243,11 +211,12 @@ export function BoldProducts({ active, onSelect }: BoldProductsProps) {
 
               <div
                 style={{
-                  ...innerBox,
                   position: "relative",
                   overflow: "hidden",
                   aspectRatio: "16 / 9",
                   background: "var(--darkbg)",
+                  border: `1px solid ${CANVAS_BORDER}`,
+                  borderRadius: 14,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
