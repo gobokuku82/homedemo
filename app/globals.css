@@ -65,6 +65,23 @@ body {
   border-color: color-mix(in srgb, var(--ink) 16%, transparent);
 }
 
+/* PARTNER WITH US role cards — elevation + 클릭 시 앞으로 튀어나오는 효과 */
+.role-card {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 10px 30px -16px rgba(0, 0, 0, 0.6);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.role-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 42px -18px rgba(0, 0, 0, 0.7);
+}
+.role-card:active {
+  transform: translateY(-10px) scale(1.015);
+  box-shadow: 0 28px 60px -22px rgba(0, 0, 0, 0.75);
+}
+
 /* desktop nav */
 @media (min-width: 769px) {
   [data-bnav] {

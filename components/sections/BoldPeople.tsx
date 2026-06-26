@@ -4,16 +4,17 @@ interface BoldPeopleProps {
   showFounder?: boolean;
 }
 
+// 1순위(제작 의뢰) — 밝은 accent 대신 다크 + accent 살짝 섞은 톤 + accent 테두리로 구분
 const featuredCard: CSSProperties = {
-  padding: "24px 22px",
-  borderRadius: 14,
-  background: "var(--accent)",
-  color: "var(--onaccent)",
+  padding: "26px 24px",
+  borderRadius: 16,
+  background: "color-mix(in srgb,var(--accent) 14%,var(--cardbg))",
+  border: "1px solid color-mix(in srgb,var(--accent) 38%,transparent)",
 };
 
 const plainCard: CSSProperties = {
-  padding: "24px 22px",
-  borderRadius: 14,
+  padding: "26px 24px",
+  borderRadius: 16,
   background: "var(--cardbg)",
   border: "1px solid var(--line)",
 };
@@ -36,9 +37,9 @@ const roles: Role[] = [
     title: "제작 의뢰",
     desc: "AI 에이전트 공동 설계 및 제작. 당신의 전문성이 곧 제품이 됩니다.",
     cardStyle: featuredCard,
-    kickerColor: "rgba(6,18,31,.7)",
-    titleColor: "var(--onaccent)",
-    descColor: "rgba(6,18,31,.82)",
+    kickerColor: "var(--accent)",
+    titleColor: "var(--ink)",
+    descColor: "var(--subtle)",
   },
   {
     featured: false,
@@ -89,7 +90,7 @@ export function BoldPeople({ showFounder = true }: BoldPeopleProps) {
             lineHeight: 1.02,
           }}
         >
-          함께 만들 파트너를 찾습니다
+          함께할 파트너를 찾습니다
         </h2>
         <p
           style={{
@@ -105,7 +106,13 @@ export function BoldPeople({ showFounder = true }: BoldPeopleProps) {
 
         <div data-broles="" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14 }}>
           {roles.map((r) => (
-            <div key={r.title} style={r.cardStyle}>
+            <a
+              key={r.title}
+              href="#cta"
+              className="role-card"
+              style={r.cardStyle}
+              aria-label={`${r.title} 문의하기`}
+            >
               {r.featured && (
                 <div style={{ fontSize: 11, fontWeight: 800, opacity: 0.8, marginBottom: 10 }}>
                   공동제작 파트너 · 1순위
@@ -144,7 +151,7 @@ export function BoldPeople({ showFounder = true }: BoldPeopleProps) {
               >
                 {r.desc}
               </p>
-            </div>
+            </a>
           ))}
         </div>
 
