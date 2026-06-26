@@ -74,6 +74,7 @@ export interface HeroSlide {
 }
 
 export const heroSlides: HeroSlide[] = [
-  { name: "MoA Dream", tag: "MARKETING", youtubeId: "YEbejPGOyMA" },
-  { name: "MAUM Dream", tag: "MANAGEMENT", image: "/hero/hero-1.png" },
+  { name: "MoA Dream", tag: "MARKETING", youtubeId: "G6pru5k0Z10" },
+  { name: "MAUM Dream", tag: "MANAGEMENT", youtubeId: "YEbejPGOyMA" },
+  { name: "Mirror Dream cso", tag: "PHARMA", image: "/hero/hero-1.png" },
 ];
