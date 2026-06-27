@@ -60,8 +60,8 @@ export interface Agent {
 
 export const agentData: Agent[] = [
   { name: "MoA Dream", domain: "마케팅", tag: "MARKETING" },
-  { name: "MAUM Dream", domain: "관리", tag: "MANAGEMENT" },
-  { name: "Mirror Dream cso", domain: "제약", tag: "PHARMA" },
+  { name: "M.A.U.M Dream", domain: "관리", tag: "MANAGEMENT" },
+  { name: "Mirror Dream", domain: "제약", tag: "PHARMA CSO" },
 ];
 
 // 히어로 쇼케이스 슬라이드 — 제품 섹션의 agentData와 독립.

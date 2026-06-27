@@ -13,7 +13,7 @@ interface BoldProductsProps {
 const productShots: string[][] = [
   [], // MoA Dream
   [], // MAUM Dream
-  [], // Mirror Dream cso
+  [], // Mirror Dream
 ];
 const PLACEHOLDER_SHOTS = 3;
 

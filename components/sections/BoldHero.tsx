@@ -112,7 +112,7 @@ export function BoldHero({
                 boxShadow: "0 10px 32px -8px color-mix(in srgb,var(--accent) 55%,transparent)",
               }}
             >
-              함께 만들기 →
+              함께 하기 →
             </a>
             {showSecondaryCta && (
               <a

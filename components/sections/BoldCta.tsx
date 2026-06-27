@@ -34,7 +34,7 @@ export function BoldCta() {
               textDecoration: "none",
             }}
           >
-            함께 만들기 →
+            함께 하기 →
           </a>
           <a
             href="#"
