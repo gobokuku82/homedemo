@@ -14,6 +14,13 @@ import {
 
 const HEX_RE = /^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$/;
 
+// 톤 그룹 헤더 라벨 (현재는 헤더 없이 단독 표시)
+const TONE_LABEL: Record<string, string> = {
+  dark: "어두운 톤",
+  mid: "기본 톤",
+  bright: "밝은 톤",
+};
+
 // 3자리 hex(#abc)를 컬러피커가 받는 6자리(#aabbcc)로 정규화
 function toFullHex(v: string): string {
   if (/^#[0-9a-fA-F]{3}$/.test(v)) {
@@ -117,27 +124,45 @@ export default function ThemeLabPage() {
       >
         <strong style={{ fontSize: 14, letterSpacing: "-.01em" }}>🎨 색상 테스트</strong>
 
-        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-          {colorSchemes.map((s) => {
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
+          {colorSchemes.map((s, i) => {
             const on = activeId === s.id;
+            const prevTone = i > 0 ? colorSchemes[i - 1].tone : null;
+            const showHeader = s.tone !== "현재" && s.tone !== prevTone;
             return (
-              <button
-                key={s.id}
-                onClick={() => applyScheme(s.id, s.scheme)}
-                title={s.note}
-                style={{
-                  cursor: "pointer",
-                  fontSize: 13,
-                  fontWeight: 700,
-                  padding: "7px 13px",
-                  borderRadius: 8,
-                  border: on ? "1px solid #5AB3D4" : "1px solid #34343d",
-                  background: on ? "#1c3a4a" : "#18181d",
-                  color: on ? "#cfeefb" : "#cdcdd5",
-                }}
-              >
-                {s.label}
-              </button>
+              <span key={s.id} style={{ display: "contents" }}>
+                {showHeader && (
+                  <span
+                    style={{
+                      alignSelf: "center",
+                      fontSize: 11,
+                      fontWeight: 800,
+                      color: "#6f7787",
+                      letterSpacing: ".02em",
+                      padding: "0 2px 0 10px",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {TONE_LABEL[s.tone]}
+                  </span>
+                )}
+                <button
+                  onClick={() => applyScheme(s.id, s.scheme)}
+                  title={s.note}
+                  style={{
+                    cursor: "pointer",
+                    fontSize: 13,
+                    fontWeight: 700,
+                    padding: "7px 13px",
+                    borderRadius: 8,
+                    border: on ? "1px solid #5AB3D4" : "1px solid #34343d",
+                    background: on ? "#1c3a4a" : "#18181d",
+                    color: on ? "#cfeefb" : "#cdcdd5",
+                  }}
+                >
+                  {s.label}
+                </button>
+              </span>
             );
           })}
           {activeId === "custom" && (

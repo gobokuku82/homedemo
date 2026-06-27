@@ -122,95 +122,216 @@ export interface NamedScheme {
   id: string;
   label: string;
   note: string;
+  /** 밝기 톤 그룹 — 툴바에서 어두운/기본/밝은 톤으로 묶어 보여줌 */
+  tone: "현재" | "dark" | "mid" | "bright";
   scheme: ColorScheme;
 }
 
-// 사용자 제안 팔레트 기반 후보안들. 편집 패널에서 자유롭게 수정 가능.
+// 제안 팔레트를 분석해 다크/미드/브라이트 3톤 × 액센트 계열로 설계.
+// 각 조합은 WCAG 대비비(ink≥7:1, subtle≥4.5:1, accent≥3:1, onaccent≥4.5:1)와
+// 배경 명도 순서(darkbg<surface<sectionbg≤cardbg<line)를 검증/보정 완료.
+// 편집 패널에서 자유롭게 수정 가능.
 export const colorSchemes: NamedScheme[] = [
   {
     id: "1",
     label: "안 1 · 현재",
     note: "지금 사이트와 동일",
+    tone: "현재",
     scheme: defaultScheme,
   },
+
+  // ── 어두운 톤 (현재보다 더 깊은 니어블랙/딥네이비) ───────────────
   {
     id: "2",
-    label: "안 2 · 네이비+스카이",
-    note: "제안 팔레트에 충실",
+    label: "안 2 · 딥네이비 스카이",
+    note: "가장 깊은 네이비 + 선명한 스카이",
+    tone: "dark",
     scheme: {
-      accent: "#3E9DC1", // sky-300 (하이라이트·링크)
-      hlAccent: "#3E9DC1",
-      onaccent: "#06192E",
-      ink: "#E8EAF2", // text
-      subtle: "#8A8D9A", // text-dim
-      surface: "#0A1C36", // navy-900
-      sectionbg: "#102A4C", // navy-800
-      prodBg: "#102A4C", // navy-800
-      prodText: "#E8EAF2",
-      prodLine: "#234E7A",
-      cardbg: "#153358", // navy-700
-      darkbg: "#06162B", // 가장 어두운 앵커
-      line: "#234E7A", // 브랜드 톤 보더
+      accent: "#45B8E0",
+      hlAccent: "#56C2E8",
+      onaccent: "#05121E",
+      ink: "#EAF1F8",
+      subtle: "#94A8C2",
+      surface: "#0A1526",
+      sectionbg: "#102036",
+      prodBg: "#0F1E33",
+      prodText: "#EAF1F8",
+      prodLine: "#2E4866",
+      cardbg: "#16293F",
+      darkbg: "#060D1A",
+      line: "#243D5A",
     },
   },
   {
     id: "3",
-    label: "안 3 · 틸 액센트",
-    note: "네이비 + 청록 강조",
+    label: "안 3 · 니어블랙 스틸",
+    note: "딥 니어블랙 + 차분한 스틸블루",
+    tone: "dark",
     scheme: {
-      accent: "#21AB9E", // teal
-      hlAccent: "#21AB9E",
-      onaccent: "#04231F",
-      ink: "#E8EAF2",
-      subtle: "#8A8D9A",
-      surface: "#0A1C36",
-      sectionbg: "#102A4C",
-      prodBg: "#102A4C",
-      prodText: "#E8EAF2",
-      prodLine: "#234E7A",
-      cardbg: "#153358",
-      darkbg: "#06162B",
-      line: "#234E7A",
+      accent: "#6FA8C9",
+      hlAccent: "#6FA8C9",
+      onaccent: "#0A1018",
+      ink: "#EEF2F8",
+      subtle: "#9AA8BD",
+      surface: "#0B1320",
+      sectionbg: "#121C2C",
+      prodBg: "#121C2C",
+      prodText: "#EEF2F8",
+      prodLine: "#3A4A60",
+      cardbg: "#1A2636",
+      darkbg: "#070C16",
+      line: "#2A394E",
     },
   },
   {
     id: "4",
-    label: "안 4 · 니어블랙",
-    note: "중성 다크 + 밝은 스카이",
+    label: "안 4 · 미드나잇 틸",
+    note: "딥 미드나잇 네이비 + 형광 틸",
+    tone: "dark",
     scheme: {
-      accent: "#5AB3D4", // sky-200
-      hlAccent: "#5AB3D4",
-      onaccent: "#06121F",
-      ink: "#E8EAF2",
-      subtle: "#8A8D9A",
-      surface: "#0E0E13", // bg-base
-      sectionbg: "#16161B", // bg-surface
-      prodBg: "#16161B",
-      prodText: "#E8EAF2",
-      prodLine: "#2A2A33",
-      cardbg: "#1C1C23",
-      darkbg: "#08080C",
-      line: "#2E2E37",
+      accent: "#2FD4C4",
+      hlAccent: "#3FE0D0",
+      onaccent: "#03201E",
+      ink: "#EAF1F3",
+      subtle: "#8DA6AE",
+      surface: "#091628",
+      sectionbg: "#0E1E33",
+      prodBg: "#0E1E33",
+      prodText: "#EAF1F3",
+      prodLine: "#2B4A5E",
+      cardbg: "#15293F",
+      darkbg: "#050E1B",
+      line: "#22425C",
+    },
+  },
+
+  // ── 기본 톤 (현재와 비슷한 밝기, 액센트 계열만 바꿈) ─────────────
+  {
+    id: "5",
+    label: "안 5 · 스카이",
+    note: "들어올린 네이비 미드톤 + 스카이",
+    tone: "mid",
+    scheme: {
+      accent: "#46BEEB",
+      hlAccent: "#5AC6EE",
+      onaccent: "#06141F",
+      ink: "#EDF3F9",
+      subtle: "#9DB0C4",
+      surface: "#13202F",
+      sectionbg: "#19293B",
+      prodBg: "#192A3C",
+      prodText: "#EDF3F9",
+      prodLine: "#34506E",
+      cardbg: "#1F3247",
+      darkbg: "#0C1622",
+      line: "#2C435E",
     },
   },
   {
-    id: "5",
-    label: "안 5 · 퍼플 팝",
-    note: "네이비 + 보라 강조",
+    id: "6",
+    label: "안 6 · 틸",
+    note: "미드톤 틸-네이비 + 선명한 틸",
+    tone: "mid",
     scheme: {
-      accent: "#9F57C5", // purple
-      hlAccent: "#9F57C5",
-      onaccent: "#1A0A28",
-      ink: "#E8EAF2",
-      subtle: "#8A8D9A",
-      surface: "#0A1C36",
-      sectionbg: "#102A4C",
-      prodBg: "#102A4C",
-      prodText: "#E8EAF2",
-      prodLine: "#234E7A",
-      cardbg: "#153358",
-      darkbg: "#06162B",
-      line: "#234E7A",
+      accent: "#2DD4C4",
+      hlAccent: "#3FE0CE",
+      onaccent: "#04201E",
+      ink: "#EAF6F4",
+      subtle: "#8FB0AE",
+      surface: "#122430",
+      sectionbg: "#173241",
+      prodBg: "#173140",
+      prodText: "#EAF6F4",
+      prodLine: "#2C4A52",
+      cardbg: "#1E4250",
+      darkbg: "#0B1A22",
+      line: "#2C5A66",
+    },
+  },
+  {
+    id: "7",
+    label: "안 7 · 퍼플 바이올렛",
+    note: "딥 퍼플 미드톤 + 바이올렛",
+    tone: "mid",
+    scheme: {
+      accent: "#B57BE0",
+      hlAccent: "#B57BE0",
+      onaccent: "#160826",
+      ink: "#EFEAF7",
+      subtle: "#A99DC6",
+      surface: "#141026",
+      sectionbg: "#1B1533",
+      prodBg: "#1B1533",
+      prodText: "#EFEAF7",
+      prodLine: "#473C6E",
+      cardbg: "#241C42",
+      darkbg: "#0D0A1A",
+      line: "#37305C",
+    },
+  },
+
+  // ── 밝은 톤 (배경을 더 들어올린 환한 다크) ──────────────────────
+  {
+    id: "8",
+    label: "안 8 · 라이트네이비 스카이",
+    note: "밝은 네이비 + 스카이",
+    tone: "bright",
+    scheme: {
+      accent: "#4FB8E0",
+      hlAccent: "#5AC0E6",
+      onaccent: "#08161F",
+      ink: "#EDF1F8",
+      subtle: "#A2B2CC",
+      surface: "#1A2A42",
+      sectionbg: "#21324F",
+      prodBg: "#20314D",
+      prodText: "#EDF1F8",
+      prodLine: "#2E456A",
+      cardbg: "#283F61",
+      darkbg: "#0F1B30",
+      line: "#3A5277",
+    },
+  },
+  {
+    id: "9",
+    label: "안 9 · 스틸블루",
+    note: "밝은 스틸블루 + 차분한 강조",
+    tone: "bright",
+    scheme: {
+      accent: "#6CB4D9",
+      hlAccent: "#6CB4D9",
+      onaccent: "#0A1726",
+      ink: "#EEF2FA",
+      subtle: "#A4B4CE",
+      surface: "#1C2E48",
+      sectionbg: "#23374F",
+      prodBg: "#22364E",
+      prodText: "#EEF2FA",
+      prodLine: "#445A7E",
+      cardbg: "#2D4366",
+      darkbg: "#101D30",
+      line: "#3D567E",
+    },
+  },
+  {
+    id: "10",
+    label: "안 10 · 코랄 팝",
+    note: "밝은 네이비 + 따뜻한 코랄",
+    tone: "bright",
+    scheme: {
+      accent: "#F4A98C",
+      hlAccent: "#F4A98C",
+      onaccent: "#241008",
+      ink: "#F3F2EE",
+      subtle: "#A9B4C6",
+      surface: "#1B2B42",
+      sectionbg: "#21344E",
+      prodBg: "#213350",
+      prodText: "#F3F2EE",
+      prodLine: "#34496B",
+      cardbg: "#2A3F5C",
+      darkbg: "#101B2C",
+      line: "#3A5277",
     },
   },
 ];
